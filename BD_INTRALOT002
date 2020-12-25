@@ -1,0 +1,51 @@
+create database intralot;
+use intralot;
+
+create table tb_jugador
+(
+idtb_jugador int primary key auto_increment,
+nombre varchar(50),
+fecha_nacimiento date,
+posicion varchar(50)
+);
+create table tb_equipo
+(
+idtb_equipo int primary key auto_increment,
+nombre_equipo varchar(50),
+nombre_estadio varchar(50),
+aforo int,
+año_fundacion date,
+ciudad varchar(50)
+);
+create table tb_detalle_equipo_jugador
+(
+idtb_detalle_equipo_jugador int primary key auto_increment,
+idtb_jugador int,
+idtb_equipo int
+);
+
+
+create table tb_ligas_partidos
+(
+idtb_ligas_partidos int primary key auto_increment,
+fecha_partido  date,
+goles_equipo_local int,
+goles_equipo_visitante int,
+idtb_detalle_equipo_jugador int,
+minuto_hora_gol varchar(100),
+descripcion_gol varchar(100)
+);
+
+
+alter table tb_detalle_equipo_jugador
+add foreign key (idtb_jugador) references tb_jugador(idtb_jugador);
+
+
+alter table tb_detalle_equipo_jugador
+add foreign key (idtb_equipo) references tb_equipo(idtb_equipo);
+
+
+
+
+alter table tb_ligas_partidos
+add foreign key (idtb_detalle_equipo_jugador) references  tb_detalle_equipo_jugador(idtb_detalle_equipo_jugador);
